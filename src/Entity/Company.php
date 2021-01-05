@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\CustomersRepository;
+use App\Repository\CompanyRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CustomersRepository::class)
+ * @ORM\Entity(repositoryClass=CompanyRepository::class)
  */
-class Customers
+class Company
 {
     /**
      * @ORM\Id
@@ -28,11 +28,6 @@ class Customers
     private $city;
 
     /**
-     * @ORM\Column(type="string", length=80)
-     */
-    private $firstname;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $zipcode;
@@ -41,6 +36,11 @@ class Customers
      * @ORM\Column(type="string", length=255)
      */
     private $address;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $siret;
 
     public function getId(): ?int
     {
@@ -71,18 +71,6 @@ class Customers
         return $this;
     }
 
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
-
-    public function setFirstname(string $firstname): self
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
     public function getZipcode(): ?int
     {
         return $this->zipcode;
@@ -103,6 +91,18 @@ class Customers
     public function setAddress(string $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    public function getSiret(): ?int
+    {
+        return $this->siret;
+    }
+
+    public function setSiret(int $siret): self
+    {
+        $this->siret = $siret;
 
         return $this;
     }
