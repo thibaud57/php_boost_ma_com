@@ -50,14 +50,15 @@ class Customers
     private $company;
 
     /**
-     * @ORM\OneToMany(targetEntity=Requests::class, mappedBy="customer")
+     * @ORM\OneToMany(targetEntity=Rqst::class, mappedBy="customer", orphanRemoval=true)
      */
-    private $requests;
+    private $rqsts;
 
     public function __construct()
     {
-        $this->requests = new ArrayCollection();
+        $this->rqsts = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -137,32 +138,33 @@ class Customers
     }
 
     /**
-     * @return Collection|Requests[]
+     * @return Collection|Rqst[]
      */
-    public function getRequests(): Collection
+    public function getRqsts(): Collection
     {
-        return $this->requests;
+        return $this->rqsts;
     }
 
-    public function addRequest(Requests $request): self
+    public function addRqst(Rqst $rqst): self
     {
-        if (!$this->requests->contains($request)) {
-            $this->requests[] = $request;
-            $request->setCustomer($this);
+        if (!$this->rqsts->contains($rqst)) {
+            $this->rqsts[] = $rqst;
+            $rqst->setCustomer($this);
         }
 
         return $this;
     }
 
-    public function removeRequest(Requests $request): self
+    public function removeRqst(Rqst $rqst): self
     {
-        if ($this->requests->removeElement($request)) {
+        if ($this->rqsts->removeElement($rqst)) {
             // set the owning side to null (unless already changed)
-            if ($request->getCustomer() === $this) {
-                $request->setCustomer(null);
+            if ($rqst->getCustomer() === $this) {
+                $rqst->setCustomer(null);
             }
         }
 
         return $this;
     }
+
 }

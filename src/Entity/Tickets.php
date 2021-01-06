@@ -33,9 +33,9 @@ class Tickets
     private $status = ['ouvert', 'terminé'];
 
     /**
-     * @ORM\OneToOne(targetEntity=Requests::class, inversedBy="tickets", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Rqst::class, inversedBy="tickets", cascade={"persist", "remove"})
      */
-    private $request;
+    private $rqst;
 
     public function getId(): ?int
     {
@@ -78,14 +78,14 @@ class Tickets
         return $this;
     }
 
-    public function getRequest(): ?Requests
+    public function getRqst(): ?Rqst
     {
-        return $this->request;
+        return $this->rqst;
     }
 
-    public function setRequest(?Requests $request): self
+    public function setRqst(?Rqst $rqst): self
     {
-        $this->request = $request;
+        $this->rqst = $rqst;
 
         return $this;
     }

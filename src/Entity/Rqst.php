@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\RequestsRepository;
+use App\Repository\RqstRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=RequestsRepository::class)
+ * @ORM\Entity(repositoryClass=RqstRepository::class)
  */
-class Requests
+class Rqst
 {
     /**
      * @ORM\Id
@@ -28,19 +28,20 @@ class Requests
     private $content;
 
     /**
-     * @ORM\Column(type="array")
-     */
-    private $status = ['ouverte', 'en cours', 'en attente', 'fermée'];
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Customers::class, inversedBy="requests")
+     * @ORM\ManyToOne(targetEntity=Customers::class, inversedBy="rqsts")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $customer;
 
     /**
-     * @ORM\OneToOne(targetEntity=Tickets::class, mappedBy="request", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Tickets::class, mappedBy="rqst", cascade={"persist", "remove"})
      */
     private $tickets;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $status = ['ouverte', 'en cours', 'en attente', 'fermée'];
 
     public function getId(): ?int
     {
@@ -71,18 +72,6 @@ class Requests
         return $this;
     }
 
-    public function getStatus(): ?array
-    {
-        return $this->status;
-    }
-
-    public function setStatus(array $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
     public function getCustomer(): ?Customers
     {
         return $this->customer;
@@ -104,15 +93,27 @@ class Requests
     {
         // unset the owning side of the relation if necessary
         if ($tickets === null && $this->tickets !== null) {
-            $this->tickets->setRequest(null);
+            $this->tickets->setRqst(null);
         }
 
         // set the owning side of the relation if necessary
-        if ($tickets !== null && $tickets->getRequest() !== $this) {
-            $tickets->setRequest($this);
+        if ($tickets !== null && $tickets->getRqst() !== $this) {
+            $tickets->setRqst($this);
         }
 
         $this->tickets = $tickets;
+
+        return $this;
+    }
+
+    public function getStatus(): ?array
+    {
+        return $this->status;
+    }
+
+    public function setStatus(array $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
