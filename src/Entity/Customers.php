@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CustomersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +48,16 @@ class Customers
      * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="customers")
      */
     private $company;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Requests::class, mappedBy="customer")
+     */
+    private $requests;
+
+    public function __construct()
+    {
+        $this->requests = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +132,36 @@ class Customers
     public function setCompany(?Company $company): self
     {
         $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Requests[]
+     */
+    public function getRequests(): Collection
+    {
+        return $this->requests;
+    }
+
+    public function addRequest(Requests $request): self
+    {
+        if (!$this->requests->contains($request)) {
+            $this->requests[] = $request;
+            $request->setCustomer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRequest(Requests $request): self
+    {
+        if ($this->requests->removeElement($request)) {
+            // set the owning side to null (unless already changed)
+            if ($request->getCustomer() === $this) {
+                $request->setCustomer(null);
+            }
+        }
 
         return $this;
     }
