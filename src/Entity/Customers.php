@@ -42,6 +42,11 @@ class Customers
      */
     private $address;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="customers")
+     */
+    private $company;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,18 @@ class Customers
     public function setAddress(string $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): self
+    {
+        $this->company = $company;
 
         return $this;
     }
