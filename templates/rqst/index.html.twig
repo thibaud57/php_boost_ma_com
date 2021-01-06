@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rqst index{% endblock %}
+
+{% block body %}
+    <h1>Rqst index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Object</th>
+                <th>Content</th>
+                <th>Status</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rqst in rqsts %}
+            <tr>
+                <td>{{ rqst.id }}</td>
+                <td>{{ rqst.object }}</td>
+                <td>{{ rqst.content }}</td>
+                <td>{{ rqst.status ? rqst.status|join(', ') : '' }}</td>
+                <td>
+                    <a href="{{ path('rqst_show', {'id': rqst.id}) }}">show</a>
+                    <a href="{{ path('rqst_edit', {'id': rqst.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('rqst_new') }}">Create new</a>
+{% endblock %}
