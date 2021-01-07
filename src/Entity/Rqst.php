@@ -39,9 +39,9 @@ class Rqst
     private $tickets;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="integer")
      */
-    private $status = ['ouverte', 'en cours', 'en attente', 'fermée'];
+    private $status;
 
     public function getId(): ?int
     {
@@ -106,12 +106,12 @@ class Rqst
         return $this;
     }
 
-    public function getStatus(): ?array
+    public function getStatus(): ?int
     {
         return $this->status;
     }
 
-    public function setStatus(array $status): self
+    public function setStatus(int $status): self
     {
         $this->status = $status;
 
