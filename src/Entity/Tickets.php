@@ -28,9 +28,9 @@ class Tickets
     private $content;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="integer")
      */
-    private $status = ['ouvert', 'terminé'];
+    private $status;
 
     /**
      * @ORM\OneToOne(targetEntity=Rqst::class, inversedBy="tickets", cascade={"persist", "remove"})
@@ -66,12 +66,12 @@ class Tickets
         return $this;
     }
 
-    public function getStatus(): ?array
+    public function getStatus(): ?int
     {
         return $this->status;
     }
 
-    public function setStatus(array $status): self
+    public function setStatus(int $status): self
     {
         $this->status = $status;
 
