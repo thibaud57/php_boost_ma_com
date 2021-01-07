@@ -40,6 +40,7 @@ public function load(ObjectManager $manager)
             'test'
         ))
         ->setRoles(["ROLE_USER"]);
+    $manager->persist($test_user);
 
     $admin = new User();
     $admin
