@@ -28,9 +28,19 @@ public function load(ObjectManager $manager)
             ->setPassword($this->passwordEncoder->encodePassword(
                 $user,
                 'the_new_password'
-            ));
+            ))
+            ->setRoles(["ROLE_USER"]);
         $manager->persist($user);
     }
+    $admin = new User();
+    $admin
+        ->setEmail('admin@mail.fr')
+        ->setPassword($this->passwordEncoder->encodePassword(
+            $admin,
+            'admin'
+        ))        ->setRoles(["ROLE_ADMIN"]);
+    $manager->persist($admin);
+
     $manager->flush();
 }
 }
