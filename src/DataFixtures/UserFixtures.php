@@ -27,20 +27,11 @@ public function load(ObjectManager $manager)
             ->setEmail($faker->email)
             ->setPassword($this->passwordEncoder->encodePassword(
                 $user,
-                'the_new_password'
+                'test'
             ))
             ->setRoles(["ROLE_USER"]);
         $manager->persist($user);
     }
-    $test_user = new User();
-    $test_user
-        ->setEmail('test@mail.fr')
-        ->setPassword($this->passwordEncoder->encodePassword(
-            $test_user,
-            'test'
-        ))
-        ->setRoles(["ROLE_USER"]);
-
     $admin = new User();
     $admin
         ->setEmail('admin@mail.fr')
