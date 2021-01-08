@@ -6,7 +6,7 @@
     <h1>Editer un client</h1>
 
     {{ include('customers/_form.html.twig', {'button_label': 'Update'}) }}
-    <button onclick="location.href='{{ path('app_register', {id}) }}'" type="button" class="btn btn-square btn-danger">Rendre utilisateur</button>
+    <button onclick="location.href='{{ path('app_register', {'id': customer.getId()})}}'" type="button" class="btn btn-square btn-danger">Rendre utilisateur</button>
     <a href="{{ path('customers_index') }}">Retour</a>
 
     {{ include('customers/_delete_form.html.twig') }}

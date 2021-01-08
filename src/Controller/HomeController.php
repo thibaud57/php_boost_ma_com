@@ -76,9 +76,11 @@ class HomeController extends AbstractController
      */
     public function user(): Response
     {
+        $em = $this->getDoctrine()->getRepository(Rqst::class);
 
         return $this->render('home/user.html.twig', [
              'controller_name' => 'HomeController',
+            'rqst' => $em->findAll()
          ]);
     }
     /**
