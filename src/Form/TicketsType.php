@@ -14,7 +14,6 @@ class TicketsType extends AbstractType
         $builder
             ->add('object')
             ->add('content')
-            ->add('status')
             ->add('rqst')
         ;
     }

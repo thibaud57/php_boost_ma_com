@@ -15,9 +15,9 @@ class CustomersType extends AbstractType
             ->add('name')
             ->add('firstname')
             ->add('email')
+            ->add('address')
             ->add('city')
             ->add('zipcode')
-            ->add('address')
             ->add('company')
         ;
     }
