@@ -41,7 +41,7 @@ class Rqst
     /**
      * @ORM\Column(type="string")
      */
-    private $status;
+    private $status = 'Nouvelle';
 
     public function getId(): ?int
     {
@@ -116,5 +116,9 @@ class Rqst
         $this->status = $status;
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->object;
     }
 }

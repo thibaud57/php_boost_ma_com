@@ -3,5 +3,53 @@
 {% block title %}Hello Admin!{% endblock %}
 
 {% block body %}
-<h1>Admin</h1>
+    <div class="c-wrapper">
+    <div class="c-body container-fluid">
+        <main class="c-main">
+            <!-- Main content here -->
+            <div class="row" style="margin-top: 20px">
+                <div class="col-4 text-center" >
+                    <img src="{{ asset('img/img_avatar_admin.png') }}" alt="Avatar King" class="avatar">
+                    <h5>Espace administrateur</h5>
+                    <button onclick="location.href='{{ path('app_logout') }}'" type="button" class="btn btn-square btn-danger">Se déconnecter</button>
+                </div>
+                <div class="col-8">
+                    <h3>Bienvenue sur l'espace admin</h3>
+                    <br>
+                    <div class="row">
+                    <div class="col-sm-4 col-md-10">
+                    <div class="c-callout c-callout-success b-t-1 b-r-1 b-b-1">
+                        <small class="text-muted">Nombre de clients</small><br>
+                        <strong class="h4">{{ totalCustomers }}</strong>
+                    </div>
+                    </div>
+                    <div class="col-sm-4 col-md-10">
+                    <div class="c-callout c-callout-warning b-t-1 b-r-1 b-b-1">
+                        <small class="text-muted">Nombre de sociétés</small><br>
+                        <strong class="h4">{{ totalCompany }}</strong>
+                    </div>
+                    </div>
+                        <div class="col-sm-4 col-md-10">
+                            <div class="c-callout c-callout-info b-t-1 b-r-1 b-b-1">
+                                <small class="text-muted">Tickets en cours</small><br>
+                                <strong class="h4">{{ totalTickets }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row text-center">
+                <div class="col-12">
+                    <h3>Interface d'administration</h3>
+                    <br>
+                    <button style="min-width: 200px" onclick="location.href='{{ path('company_index') }}'" type="button" class="btn btn-square btn-warning">Sociétés</button>
+                    <button style="min-width: 200px" onclick="location.href='{{ path('customers_index') }}'" type="button" class="btn btn-square btn-success">Clients</button>
+                    <button style="min-width: 200px" onclick="location.href='{{ path('tickets_index') }}'" type="button" class="btn btn-square btn-info">Tickets</button>
+                </div>
+
+            </div>
+        </main>
+    </div>
+    </div>
 {% endblock %}

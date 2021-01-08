@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <div class="c-wrapper">
+        <div class="c-body container-fluid">
+            <main class="c-main text-center">
+                <h2>Bon maintenant que t'es tombé là ... pas le choix ... je mérite bien un point bonus non ? ;)</h2>
+                <img src="{{ asset('img/ahah.jpg') }}" alt="ahah">
+                <br>
+                <a style="color:black; margin-top:15px; font-size: large" href="{{ path('home')}}">Retour</a>
+            </main>
+        </div>
+    </div>
+{% endblock %}
