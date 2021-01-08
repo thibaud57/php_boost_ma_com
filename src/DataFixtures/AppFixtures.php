@@ -6,15 +6,49 @@ use App\Entity\Company;
 use App\Entity\Customers;
 use App\Entity\Rqst;
 use App\Entity\Tickets;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
+        $user_array = array();
+
+        for($i=0;$i<5;$i++){
+            $user = new User();
+            $user
+                ->setEmail($faker->email)
+                ->setPassword($this->passwordEncoder->encodePassword(
+                    $user,
+                    'test'
+                ))
+                ->setRoles(["ROLE_USER"]);
+            $manager->persist($user);
+            $manager->flush();
+            array_push($user_array, $user->getId());
+        }
+        $admin = new User();
+        $admin
+            ->setEmail('admin@mail.fr')
+            ->setPassword($this->passwordEncoder->encodePassword(
+                $admin,
+                'admin'
+            ))        ->setRoles(["ROLE_ADMIN"]);
+        $manager->persist($admin);
+        $manager->flush();
+
 
         $company_array = array();
 
@@ -56,12 +90,12 @@ class AppFixtures extends Fixture
 
         for($i=0;$i<7;$i++){
             $rqst = new Rqst();
-            $cstm_id = array_rand($customer_array, 1);
+            $user_id = array_rand($user_array, 1);
             $rqst_status_id = array_rand($rqst_status, 1);
             $rqst
                 ->setObject($faker->sentence($nbWords=3, $variableNbWords=true))
                 ->setContent($faker->paragraph($nbSentences=8, $variableNbSentences=true))
-                ->setCustomer($manager->getRepository(Customers::class)->find($customer_array[$cstm_id]))
+                ->setUser($manager->getRepository(User::class)->find($user_array[$user_id]))
                 ->setStatus($rqst_status[$rqst_status_id]);
             $manager->persist($rqst);
             $manager->flush();

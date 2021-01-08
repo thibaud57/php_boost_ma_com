@@ -104,7 +104,7 @@ class LoginFormAuthenticationAuthenticator extends AbstractFormLoginAuthenticato
         }else{
             $user = $token->getUser();
             $id = $user->getId();
-            return new RedirectResponse($this->urlGenerator->generate('user', array('id' => $id)));
+            return new RedirectResponse($this->urlGenerator->generate('user', array('uid' => $id)));
         }
     }
 

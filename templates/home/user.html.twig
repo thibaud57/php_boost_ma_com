@@ -17,17 +17,17 @@
                     <div class="col-8">
                         <h3>Bienvenue sur votre espace membre</h3>
                         <br>
-                        <p>Vous pouvez depuis cet interface formuler vos demandes de supports.</p>
-                        <p>Toute demande sera traité dans les plus brefs délais par notre équipe.</p>
-                        <p>Vous trouverez une étiquette attaché à chaque demande, indiquant le statut de celle-ci.</p>
-                        <p>Pour toute informations complémentaires, veuillez nous contacter directement.</p>
+                        <p>Vous pouvez depuis cet interface formuler vos demandes de supports.
+                            Toute demande sera traité dans les plus brefs délais par notre équipe.</p>
+                            <p>Vous trouverez une étiquette attaché à chaque demande, indiquant le statut de celle-ci.
+                            Pour toute informations complémentaires, veuillez nous contacter directement.</p>
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-1"></div>
                     <div class="col-10">
-                        {% include '@rqst/index.html.twig' with { 'rqsts' : rqst} %}
+                        {% include '@rqst/index.html.twig' with { 'rqsts' : rqst, 'user_id': app.user.id } %}
                     </div>
                     <div class="col-1"></div>
 

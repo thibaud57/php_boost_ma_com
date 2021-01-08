@@ -49,10 +49,6 @@ class Customers
      */
     private $company;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Rqst::class, mappedBy="customer", orphanRemoval=true)
-     */
-    private $rqsts;
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="customer", cascade={"persist", "remove"})
@@ -64,10 +60,6 @@ class Customers
      */
     private $email;
 
-    public function __construct()
-    {
-        $this->rqsts = new ArrayCollection();
-    }
 
 
     public function getId(): ?int
@@ -147,35 +139,6 @@ class Customers
         return $this;
     }
 
-    /**
-     * @return Collection|Rqst[]
-     */
-    public function getRqsts(): Collection
-    {
-        return $this->rqsts;
-    }
-
-    public function addRqst(Rqst $rqst): self
-    {
-        if (!$this->rqsts->contains($rqst)) {
-            $this->rqsts[] = $rqst;
-            $rqst->setCustomer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRqst(Rqst $rqst): self
-    {
-        if ($this->rqsts->removeElement($rqst)) {
-            // set the owning side to null (unless already changed)
-            if ($rqst->getCustomer() === $this) {
-                $rqst->setCustomer(null);
-            }
-        }
-
-        return $this;
-    }
     public function __toString()
     {
         return $this->name;

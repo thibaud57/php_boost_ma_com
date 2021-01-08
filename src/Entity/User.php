@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -41,6 +43,16 @@ class User implements UserInterface
      * @ORM\JoinColumn(nullable=true)
      */
     private $customer;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Rqst::class, mappedBy="user")
+     */
+    private $rqsts;
+
+    public function __construct()
+    {
+        $this->rqsts = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -129,6 +141,36 @@ class User implements UserInterface
     public function setCustomer(Customers $customer): self
     {
         $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rqst[]
+     */
+    public function getRqsts(): Collection
+    {
+        return $this->rqsts;
+    }
+
+    public function addRqst(Rqst $rqst): self
+    {
+        if (!$this->rqsts->contains($rqst)) {
+            $this->rqsts[] = $rqst;
+            $rqst->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRqst(Rqst $rqst): self
+    {
+        if ($this->rqsts->removeElement($rqst)) {
+            // set the owning side to null (unless already changed)
+            if ($rqst->getUser() === $this) {
+                $rqst->setUser(null);
+            }
+        }
 
         return $this;
     }
