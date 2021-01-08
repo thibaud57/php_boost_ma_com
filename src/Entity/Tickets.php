@@ -89,4 +89,9 @@ class Tickets
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->object;
+    }
+
 }

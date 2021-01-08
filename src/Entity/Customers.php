@@ -54,6 +54,11 @@ class Customers
      */
     private $rqsts;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="customer", cascade={"persist", "remove"})
+     */
+    private $user;
+
     public function __construct()
     {
         $this->rqsts = new ArrayCollection();
@@ -166,5 +171,25 @@ class Customers
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->name;
+    }
 
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        // set the owning side of the relation if necessary
+        if ($user->getCustomer() !== $this) {
+            $user->setCustomer($this);
+        }
+
+        $this->user = $user;
+
+        return $this;
+    }
 }

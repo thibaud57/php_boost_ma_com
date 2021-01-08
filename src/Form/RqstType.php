@@ -14,10 +14,7 @@ class RqstType extends AbstractType
         $builder
             ->add('object')
             ->add('content')
-            ->add('status')
-            ->add('customer')
-            ->add('tickets')
-        ;
+            ->add('customer');
     }
 
     public function configureOptions(OptionsResolver $resolver)

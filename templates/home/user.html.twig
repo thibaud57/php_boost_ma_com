@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Admin!{% endblock %}
+
+{% block body %}
+    <div class="c-wrapper">
+        <div class="c-body container-fluid">
+            <main class="c-main">
+                <!-- Main content here -->
+                <div class="row" style="margin-top: 20px">
+                    <div class="col-4 text-center" >
+                        <img src="{{ asset('img/img_avatar.png') }}" alt="Avatar" class="avatar">
+                        <h5>Espace membre</h5>
+                        <p>{{ app.user.username }}</p>
+                        <button onclick="location.href='{{ path('app_logout') }}'" type="button" class="btn btn-square btn-danger">Se déconnecter</button>
+                    </div>
+                    <div class="col-8">
+                        <h3>Bienvenue sur votre espace membre</h3>
+                        <br>
+                        <p>Vous pouvez depuis cet interface formuler vos demandes de supports.</p>
+                        <p>Toute demande sera traité dans les plus brefs délais par notre équipe.</p>
+                        <p>Vous trouverez une étiquette attaché à chaque demande, indiquant le statut de celle-ci.</p>
+                        <p>Pour toute informations complémentaires, veuillez nous contacter directement.</p>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        {% include '@rqst/index.html.twig' with { 'rqsts' : 'rqst'} %}
+                    </div>
+                    <div class="col-1"></div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+{% endblock %}

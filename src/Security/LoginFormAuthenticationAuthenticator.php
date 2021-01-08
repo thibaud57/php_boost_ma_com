@@ -90,15 +90,20 @@ class LoginFormAuthenticationAuthenticator extends AbstractFormLoginAuthenticato
         return $credentials['password'];
     }
 
+    protected $security;
+
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
 
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        return new RedirectResponse($this->urlGenerator->generate('home'));
-//        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        $roles = $token->getUser()->getRoles();
+        if (in_array('ROLE_ADMIN', $roles)){
+            return new RedirectResponse($this->urlGenerator->generate('admin'));
+        }else{
+            return new RedirectResponse($this->urlGenerator->generate('user'));
+        }
     }
 
     protected function getLoginUrl()

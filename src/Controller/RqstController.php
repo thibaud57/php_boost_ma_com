@@ -39,7 +39,7 @@ class RqstController extends AbstractController
             $entityManager->persist($rqst);
             $entityManager->flush();
 
-            return $this->redirectToRoute('rqst_index');
+            return $this->redirectToRoute('user');
         }
 
         return $this->render('rqst/new.html.twig', [
@@ -69,7 +69,7 @@ class RqstController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('rqst_index');
+            return $this->redirectToRoute('user');
         }
 
         return $this->render('rqst/edit.html.twig', [
@@ -89,6 +89,6 @@ class RqstController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('rqst_index');
+        return $this->redirectToRoute('user');
     }
 }

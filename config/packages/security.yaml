@@ -39,3 +39,4 @@ security:
          - { path: ^/customers, roles: ROLE_ADMIN }
          - { path: ^/company, roles: ROLE_ADMIN }
          - { path: ^/rqst, roles: ROLE_USER }
+         - { path: ^/user, roles: ROLE_USER }

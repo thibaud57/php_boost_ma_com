@@ -3,16 +3,16 @@
 {% block title %}Rqst index{% endblock %}
 
 {% block body %}
-    <h1>Rqst index</h1>
+    <h1>Liste des demandes</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Object</th>
-                <th>Content</th>
+                <th>Objet</th>
+                <th>Message</th>
                 <th>Status</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -29,11 +29,11 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">Aucune demande</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('rqst_new') }}">Create new</a>
+    <a href="{{ path('rqst_new') }}">Créer une demande</a>
 {% endblock %}
