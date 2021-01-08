@@ -31,6 +31,7 @@ class TicketsController extends AbstractController
     public function new(Request $request): Response
     {
         $ticket = new Tickets();
+        $ticket->setStatus('ouvert');
         $form = $this->createForm(TicketsType::class, $ticket);
         $form->handleRequest($request);
 
@@ -67,6 +68,7 @@ class TicketsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $ticket->setStatus('ouvert');
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('tickets_index');
@@ -84,10 +86,11 @@ class TicketsController extends AbstractController
     public function delete(Request $request, Tickets $ticket): Response
     {
         if ($this->isCsrfTokenValid('delete'.$ticket->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($ticket);
-            $entityManager->flush();
+        $ticket->setStatus('fermé');
+        $this->getDoctrine()->getManager()->flush();
         }
+
+
 
         return $this->redirectToRoute('tickets_index');
     }

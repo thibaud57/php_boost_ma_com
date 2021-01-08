@@ -8,7 +8,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Numéro</th>
                 <th>Objet</th>
                 <th>Message</th>
                 <th>Status</th>
@@ -23,13 +23,13 @@
                 <td>{{ rqst.content }}</td>
                 <td>{{ rqst.status ? rqst.status|join(', ') : '' }}</td>
                 <td>
-                    <a href="{{ path('rqst_show', {'id': rqst.id}) }}">show</a>
-                    <a href="{{ path('rqst_edit', {'id': rqst.id}) }}">edit</a>
+                    <a href="{{ path('rqst_show', {'id': rqst.id}) }}">Montrer</a>
+                    <a href="{{ path('rqst_edit', {'id': rqst.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">Aucune demande</td>
+                <td colspan="5">Aucune demandes</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -72,7 +72,7 @@ class HomeController extends AbstractController
         ]);
     }
     /**
-     * @Route("/user", name="user")
+     * @Route("/user/{id}", name="user")
      */
     public function user(): Response
     {
