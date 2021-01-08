@@ -37,8 +37,12 @@ class TicketsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            if ($ticket->getRqst()) {
+                $ticket->getRqst()->setStatus('En cours');
+            }
             $entityManager->persist($ticket);
             $entityManager->flush();
+
 
             return $this->redirectToRoute('tickets_index');
         }
@@ -87,6 +91,7 @@ class TicketsController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$ticket->getId(), $request->request->get('_token'))) {
         $ticket->setStatus('fermé');
+        $ticket->getRqst()->setStatus('Traitée');
         $this->getDoctrine()->getManager()->flush();
         }
 
