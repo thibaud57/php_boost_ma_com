@@ -40,6 +40,7 @@ class AppFixtures extends Fixture
             $customer
                 ->setName($faker->lastName)
                 ->setFirstname($faker->firstName)
+                ->setEmail($faker->email)
                 ->setAddress($faker->streetAddress)
                 ->setCity($faker->city)
                 ->setZipcode($faker->numberBetween(57000, 57999))

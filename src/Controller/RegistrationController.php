@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Customers;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,12 +16,16 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/customers/{id}/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, $id): Response
     {
+        $customer = $this->getDoctrine()->getRepository(Customers::class)->find($id);
+
         $user = new User();
+        $user->setEmail($customer->getEmail());
+        $user->setCustomer($customer);
+        $user->setRoles(['ROLE_USER']);
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
