@@ -17,6 +17,7 @@
         </thead>
         <tbody>
         {% for rqst in rqsts %}
+            {% if rqst.user.id == user_id %}
             <tr>
                 <td>{{ rqst.id }}</td>
                 <td>{{ rqst.object }}</td>
@@ -27,9 +28,10 @@
                     <a href="{{ path('rqst_edit', {'id': rqst.id}) }}">Editer</a>
                 </td>
             </tr>
+            {% endif %}
         {% else %}
             <tr>
-                <td colspan="5">Aucune demandes</td>
+                <td colspan="5">Aucune demande</td>
             </tr>
         {% endfor %}
         </tbody>

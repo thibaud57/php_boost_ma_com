@@ -27,11 +27,6 @@ class Rqst
      */
     private $content;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Customers::class, inversedBy="rqsts")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $customer;
 
     /**
      * @ORM\OneToOne(targetEntity=Tickets::class, mappedBy="rqst", cascade={"persist", "remove"})
@@ -42,6 +37,11 @@ class Rqst
      * @ORM\Column(type="string")
      */
     private $status = 'Nouvelle';
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="rqsts")
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -68,18 +68,6 @@ class Rqst
     public function setContent(string $content): self
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    public function getCustomer(): ?Customers
-    {
-        return $this->customer;
-    }
-
-    public function setCustomer(?Customers $customer): self
-    {
-        $this->customer = $customer;
 
         return $this;
     }
@@ -120,5 +108,17 @@ class Rqst
     public function __toString()
     {
         return $this->object;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }
